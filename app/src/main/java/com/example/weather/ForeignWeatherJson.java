@@ -5,7 +5,9 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ForeignWeatherJson extends WeatherJson implements Runnable{
+import java.util.concurrent.Callable;
+
+public class ForeignWeatherJson extends WeatherJson implements Callable<Boolean> {
 
     private String TAG = "WeatherInfo";
     private String city;
@@ -28,7 +30,7 @@ public class ForeignWeatherJson extends WeatherJson implements Runnable{
         return new String[]{getRequest(weatherUrl.toString())};
     }
     @Override
-    public void run() {
+    public Boolean call() {
             String[] response = makeRequest();
 
             Log.e(TAG, "Response from url: " + response[0]);
@@ -74,7 +76,9 @@ public class ForeignWeatherJson extends WeatherJson implements Runnable{
                 }
             } else {
                 Log.e(TAG, "Couldn't get json from server.");
+                return false;
             }
+            return true;
 
 
 

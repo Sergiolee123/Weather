@@ -13,11 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="500dp"/>
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:text="Button"/>
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:layout_marginHorizontal="10dp"
+            android:id="@+id/btn"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/show_weather_button"/>
 
 
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/add_weather_button"/>
+
+    </LinearLayout>/
 </LinearLayout>

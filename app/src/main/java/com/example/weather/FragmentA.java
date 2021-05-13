@@ -1,15 +1,12 @@
 package com.example.weather;
 
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,7 +26,7 @@ public class FragmentA extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
     private GoogleMap mgoogleMap;
-    private Button btn;
+    private Button btn, addBtn;
     private static Double lat=null;
     private static Double lng=null;
 
@@ -41,6 +38,7 @@ public class FragmentA extends Fragment implements OnMapReadyCallback {
 
         mMapView=(MapView)view.findViewById(R.id.google_map);
         btn=(Button)view.findViewById(R.id.btn);
+        addBtn=(Button)view.findViewById(R.id.addBtn);
 
 
 
@@ -50,7 +48,6 @@ public class FragmentA extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 if(lat!=null&&lng!=null){
                     WeatherInfo weatherInfo = WeatherList.updateMapWeather(String.valueOf(lat), String.valueOf(lng));
-                    Log.e("FA", "" + weatherInfo);
                     if(weatherInfo != null){
                         try {
                             AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
@@ -64,6 +61,34 @@ public class FragmentA extends Fragment implements OnMapReadyCallback {
                         }
                     }
 
+                }
+            }
+        });
+
+        addBtn.setOnClickListener( v -> {
+            WeatherInfo weatherInfo = WeatherList.updateMapWeather(String.valueOf(lat), String.valueOf(lng));
+            if(weatherInfo != null){
+                if(weatherInfo.getName().length() == 0){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
+                    builder.setTitle("");
+                    builder.setMessage("This location is not supported");
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+                    return;
+                }
+
+                WeatherList.cityName.add(weatherInfo.getName());
+                StoreLocalData storeLocalData = new StoreLocalData();
+                storeLocalData.write(WeatherList.cityName);
+                try {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
+                    builder.setTitle("");
+                    builder.setMessage(weatherInfo.getName() + "is added to foreign weather");
+                    AlertDialog alertDialog = builder.create();
+                    alertDialog.show();
+
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });

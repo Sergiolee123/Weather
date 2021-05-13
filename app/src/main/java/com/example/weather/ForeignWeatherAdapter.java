@@ -1,12 +1,13 @@
 package com.example.weather;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,12 +40,23 @@ public class ForeignWeatherAdapter extends RecyclerView.Adapter<ForeignWeatherAd
         WeatherInfo weatherInfo = foreignWeatherList.get(position);
         viewHolder.img_weather.setImageResource(R.drawable.ic__1d);
         viewHolder.txt_city_name.setText(weatherInfo.getName());
-        viewHolder.txt_temperature.setText(weatherInfo.getTemp());
+        viewHolder.txt_temperature.setText(weatherInfo.getTemp() + "°C");
         viewHolder.txt_date_time.setText(weatherInfo.getDisplayDayTime());
         viewHolder.txt_maxmintemperature.setText(weatherInfo.getTempMinMax());
         viewHolder.txt_feelslike.setText(weatherInfo.getFeelsLike());
         viewHolder.txt_speed.setText(weatherInfo.getWindSpeed());
         viewHolder.txt_humidity.setText(weatherInfo.getHumidity());
+        viewHolder.itemView.setOnClickListener(v -> {
+            WeatherList.cityName.remove(weatherInfo.getName());
+            StoreLocalData storeLocalData = new StoreLocalData();
+            storeLocalData.write(WeatherList.cityName);
+            foreignWeatherList.remove(viewHolder.getAdapterPosition());
+            notifyItemRemoved(viewHolder.getAdapterPosition());
+            notifyItemRangeChanged(viewHolder.getAdapterPosition(), foreignWeatherList.size());
+            Toast toast = Toast.makeText(context, "You deleted weather information from"
+                    + weatherInfo.getName(), Toast.LENGTH_LONG);
+            toast.show();
+        });
 
     }
 

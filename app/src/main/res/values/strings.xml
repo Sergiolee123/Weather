@@ -7,5 +7,10 @@
     <string name="foreignButton">foreign Weather</string>
     <string name="updated_by_local_time">updated by local time</string>
     <string name="hourly_weather">Hourly Weather</string>
+    <string name="editText">City Name...</string>
+    <string name="add_weather">Add weather</string>
+    <string name="show_weather_button">Show Weather</string>
+    <string name="add_weather_button">ADD</string>
+    <string name="five_day_weather">5 Day Weather</string>
 
 </resources>

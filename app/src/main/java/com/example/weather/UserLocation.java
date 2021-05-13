@@ -5,7 +5,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.renderscript.RenderScript;
 import android.util.Log;
 
 
@@ -15,18 +14,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.CancellationTokenSource;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import static com.google.android.gms.location.LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY;
 
 public class UserLocation implements OnSuccessListener<Location>{
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
@@ -61,8 +55,8 @@ public class UserLocation implements OnSuccessListener<Location>{
         if(location != null){
             lon = location.getLongitude();
             lat = location.getLatitude();
-            DesktopWidget.lon = String.valueOf(lon);
-            DesktopWidget.lat = String.valueOf(lat);
+            StoreLocalData storeLocalData = new StoreLocalData();
+            storeLocalData.write(String.valueOf(lat),String.valueOf(lon));
             Future<Boolean> future = executorPool.submit(new LocalWeatherJson(String.valueOf(lat),
                     String.valueOf(lon)),true);
             try {

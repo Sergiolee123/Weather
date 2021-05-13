@@ -58,7 +58,7 @@ public class WeatherInfo{
     }
 
     public String getTemp() {
-        return String.format("%.0f", (Double.parseDouble(temp)-273));
+        return String.format("%.1f", (Double.parseDouble(temp)-273));
     }
 
     public void setTemp(String temp) {
@@ -102,7 +102,7 @@ public class WeatherInfo{
     }
 
     public String getHumidity() {
-        return humidity;
+        return humidity + "%";
     }
 
     public void setHumidity(String humidity) {

@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -20,6 +21,9 @@ public class DesktopWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.desktop_widget);
         new Thread(() ->{
             WeatherInfo weatherInfo;
+
+
+
             int i = 0;
             while (lat == null && lon == null){
                 try {
@@ -27,6 +31,9 @@ public class DesktopWidget extends AppWidgetProvider {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                SharedPreferences sharedPreferences = context.getSharedPreferences("Data", Context.MODE_PRIVATE);
+                lat = sharedPreferences.getString("lat",null);
+                lon = sharedPreferences.getString("lon",null);
                 i++;
                 if(i>10){
                     Intent intent = new Intent(context, MainActivity.class);
@@ -41,10 +48,10 @@ public class DesktopWidget extends AppWidgetProvider {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                WeatherList.updateWeather(lat,lon);
                 weatherInfo = WeatherList.getWeather();
                 if(weatherInfo != null)
                     break;
-                WeatherList.updateWeather(lat,lon);
                 i++;
                 if(i>10){
                     views.setTextViewText(R.id.appwidget_Location, "Error, please restart the app");

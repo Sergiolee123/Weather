@@ -3,11 +3,8 @@ package com.example.weather;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.TimeZone;
 
 @SuppressLint("SimpleDateFormat")
@@ -31,7 +28,7 @@ public class Times {
                 sdf = new SimpleDateFormat("HH dd MM yyyy");
                 break;
             case "day" :
-                sdf = new SimpleDateFormat("dd MM yyyy");
+                sdf = new SimpleDateFormat("dd/MM");
                 break;
             case "display" :
                 sdf = new SimpleDateFormat("HH:mm dd/MM/yyyy");

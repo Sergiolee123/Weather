@@ -13,10 +13,12 @@ import java.util.List;
 public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapter.ViewHolder>{
     private List<WeatherInfo> LocalWeatherList;
     private Context context;
+    private int size;
 
-    public LocalWeatherAdapter(Context context, List<WeatherInfo> weatherList) {
+    public LocalWeatherAdapter(Context context, List<WeatherInfo> weatherList, int size) {
         this.LocalWeatherList = weatherList;
         this.context = context;
+        this.size = size;
     }
 
     // Create new views (invoked by the layout manager)
@@ -33,18 +35,29 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(LocalWeatherAdapter.ViewHolder viewHolder, final int position) {
+        WeatherInfo weatherInfo;
+        if(size == 33) {
+            weatherInfo = LocalWeatherList.get(position + 1);
+            viewHolder.localImage.setImageResource(R.drawable.ic__1d);
+            viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay() + "     " + weatherInfo.getDisplayHour());
+            viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
+        }
+        else{
+            weatherInfo = LocalWeatherList.get(position);
+            viewHolder.localImage.setImageResource(R.drawable.ic__1d);
+            viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay());
+            viewHolder.txt_localTemperature.setText(new StringBuilder()
+                    .append(weatherInfo.getTemp()).append("°C").toString());
+        }
 
-        WeatherInfo weatherInfo = LocalWeatherList.get(position+1);
-        viewHolder.localImage.setImageResource(R.drawable.ic__1d);
-        viewHolder.txt_localTime.setText(weatherInfo.getDisplayHour());
-        viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
+
 
     }
 
 
     @Override
     public int getItemCount() {
-        return LocalWeatherList.size()-33;
+        return LocalWeatherList.size() - size;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

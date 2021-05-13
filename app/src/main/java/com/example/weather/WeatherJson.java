@@ -1,9 +1,6 @@
 package com.example.weather;
 
 import android.util.Log;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -14,7 +11,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.concurrent.Callable;
 
 public abstract class WeatherJson{
     private static final String TAG = "WeatherJson";
