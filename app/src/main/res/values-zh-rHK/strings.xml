@@ -5,7 +5,7 @@
     <string name="add_widget">新增小工具</string>
     <string name="foreignButton">外國天氣</string>
     <string name="updated_by_local_time">更新至當地時間</string>
-    <string name="hourly_weather">每小時天氣</string>
+    <string name="hourly_weather">每3小時天氣</string>
     <string name="temperature">溫度</string>
     <string name="humidity">濕度</string>
     <string name="feels_like">體感溫度</string>

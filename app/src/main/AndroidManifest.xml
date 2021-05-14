@@ -29,7 +29,8 @@
                 android:resource="@xml/desktop_widget_info" />
         </receiver>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,9 +38,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".LocalWeatherActivity">
+        <activity android:name=".LocalWeatherActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
-        <activity android:name=".ForeignWeatherActivity">
+        <activity android:name=".ForeignWeatherActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
         </activity>
     </application>
 
