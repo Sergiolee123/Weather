@@ -88,7 +88,7 @@
                     android:layout_height="30dp"
                     android:src="@drawable/ic_thermometer" />
                 <TextView
-                    android:text="Temperature"
+                    android:text="@string/temperature"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:gravity="left"
@@ -120,7 +120,7 @@
                     android:layout_height="30dp"
                     />
                 <TextView
-                    android:text="Feels Like"
+                    android:text="@string/feels_like"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:textSize="18sp"
@@ -151,7 +151,7 @@
                     android:layout_height="30dp"
                     />
                 <TextView
-                    android:text="Wind"
+                    android:text="@string/wind"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"
@@ -184,7 +184,7 @@
                     android:layout_height="30dp"
                     />
                 <TextView
-                    android:text="Humidity"
+                    android:text="@string/humidity"
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
                     android:layout_gravity="left"

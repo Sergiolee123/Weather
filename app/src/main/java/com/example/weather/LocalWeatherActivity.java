@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 @SuppressLint("ClickableViewAccessibility")
 public class LocalWeatherActivity extends AppCompatActivity {
@@ -109,7 +110,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
         ArrayList<WeatherInfo> w = new ArrayList<>();
         for(int i = 1; i<=5; i++){
             Calendar cal = Calendar.getInstance();
-            //use to get day of next five day, add the current day from +1 to +5
+            //use to get day of next five day, add the weatherInfo object from current day +1 to +5
             cal.add(Calendar.DATE, + i);
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
@@ -117,7 +118,19 @@ public class LocalWeatherActivity extends AppCompatActivity {
             sdf.setTimeZone(TimeZone.getDefault());
             String Date = sdf.format(cal.getTime());
             //use the date to get the weatherInfo object and store it to the array list
-            w.add(WeatherList.getWeather(Date));
+            WeatherInfo fiveDayInfo = WeatherList.getWeather(Date);
+            Log.e(TAG,fiveDayInfo + "");
+            if(fiveDayInfo != null){
+                w.add(fiveDayInfo);
+            }else{
+                /*if the Weather info of the API is not updated to the newest vision,
+                add current date data*/
+                java.util.Date d = new Date();
+                sdf.setTimeZone(TimeZone.getDefault());
+                Date = sdf.format(d);
+                w.add(0,WeatherList.getWeather(Date));
+            }
+
         }
         //set the recycler view for 3 hourly weather
         RecyclerView recyclerView = findViewById(R.id.recycler_local);
@@ -146,8 +159,8 @@ public class LocalWeatherActivity extends AppCompatActivity {
             //show error message if the user input is empty
             if(input.length() == 0){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("No Result");
-                builder.setMessage("Please input a city name.");
+                builder.setTitle(getText(R.string.no_result_alertdialog_title));
+                builder.setMessage(getText(R.string.empty_city_input_message));
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
                 return;
@@ -172,8 +185,8 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 //if the city is not supported by the API, show an error message
                 cityInput.setText("");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("No Result");
-                builder.setMessage(input + " is not supported");
+                builder.setTitle(getText(R.string.no_result_alertdialog_title));
+                builder.setMessage(input + getText(R.string.not_supported));
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
@@ -189,7 +202,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                         try {
                             AlertDialog.Builder builder = new AlertDialog.Builder(this);
                             builder.setTitle(weatherInfo1.getName());
-                            builder.setMessage("Temp: " + weatherInfo1.getTemp());
+                            builder.setMessage( getText(R.string.temperature) + ": " + weatherInfo1.getTemp());
                             AlertDialog alertDialog = builder.create();
                             alertDialog.show();
 
@@ -211,7 +224,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 if(mapWeatherInfo.getName().length() == 0){
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("");
-                    builder.setMessage("This location is not supported");
+                    builder.setMessage(getText(R.string.location_not_support));
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
                     return;
@@ -223,7 +236,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 try {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("");
-                    builder.setMessage(mapWeatherInfo.getName() + "is added to foreign weather");
+                    builder.setMessage(mapWeatherInfo.getName() + getText(R.string.is_added));
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
@@ -234,7 +247,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 //if the API don't response anything, show error message
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("");
-                builder.setMessage("No data return from this location");
+                builder.setMessage(getText(R.string.no_data_return));
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             }
@@ -267,7 +280,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION:
                 if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    String msg = "Please run the app again and grant the required permission.";
+                    CharSequence msg = getText(R.string.permission_message);
                     Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                     finish();
                 }

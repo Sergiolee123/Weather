@@ -42,15 +42,15 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
             weatherInfo = LocalWeatherList.get(position + 1);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay() + "     " + weatherInfo.getDisplayHour());
-            viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
+            viewHolder.txt_localTemperature.setText(new StringBuilder()
+                    .append(weatherInfo.getTemp()).append("°C").toString());
         }
         else{
             //show 5 day weather
             weatherInfo = LocalWeatherList.get(position);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay());
-            viewHolder.txt_localTemperature.setText(new StringBuilder()
-                    .append(weatherInfo.getTemp()).append("°C").toString());
+            viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
         }
 
 

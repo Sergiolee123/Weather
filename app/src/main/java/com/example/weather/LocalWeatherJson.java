@@ -11,14 +11,14 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
     private static final String TAG = "LocalWeatherJson";
     private String lat, lon;
     private boolean widget;
-
+    //for normal weather update
     public LocalWeatherJson(String lat, String lon) {
         this.lat = lat;
         this.lon = lon;
         widget = false;
 
     }
-
+    //for widget weather update
     public LocalWeatherJson(String lat, String lon, boolean widget) {
         this.lat = lat;
         this.lon = lon;
@@ -29,6 +29,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
     protected String[] makeRequest() {
         String[] response;
         String apiKey = "6edd96d498ffab01ff671f39d92df7c1";
+        //for widget data update, no need to get forecast weather information, set up the API URL
         if(widget) {
             response = new String[1];
             StringBuilder weatherUrl = new StringBuilder();
@@ -37,6 +38,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                     .append("&appid=").append(apiKey);
             response[0] = getRequest(weatherUrl.toString());
         }else {
+            //for app data update, get both current and 5 day 3 hourly forecast update, set up the API URL
             response = new String[2];
             StringBuilder weatherUrl = new StringBuilder();
             StringBuilder forecastUrl = new StringBuilder();
@@ -59,9 +61,11 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
         String[] response = makeRequest();
         String weatherStr = null;
         String forecastStr = null;
+        //for widget data update, only get the current local time response
         if(response != null && widget) {
             weatherStr = response[0];
         }else if(response != null){
+            //for app data update, only get the current and forecast local time response
             weatherStr = response[0];
             forecastStr = response[1];
         }
@@ -109,7 +113,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                     w1.setDayTime(dayTime);
                     w1.setWindSpeed(windSpeed);
                     w1.setTimeZoneOffset(Integer.parseInt(timeZoneOffset));
-                    // Add the object to the List
+                    // Add the object to the localWeatherList
                     WeatherList.localWeatherList.add(w1);
 
                 }
@@ -135,7 +139,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 JSONObject ww = weather.getJSONObject(0);
                 String weatherIcon = ww.getString("main");
 
-                // Getting JSON
+
                 JSONObject main = jsonObj.getJSONObject("main");
                 String temp = main.getString("temp");
                 String feelsLike = main.getString("feels_like");
@@ -143,7 +147,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 String tempMax = main.getString("temp_max");
                 String humidity = main.getString("humidity");
 
-                // JSON Object
+
                 JSONObject wind = jsonObj.getJSONObject("wind");
                 String windSpeed = wind.getString("speed");
 
@@ -160,7 +164,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 w.setWindSpeed(windSpeed);
                 w.setTimeZoneOffset(Integer.parseInt(timeZoneOffset));
 
-                // Add the object to the vector
+                // Add the current weatherInfo object to the index 0 of localWeatherList
                 WeatherList.localWeatherList.add(0, w);
 
             } catch (final JSONException e) {

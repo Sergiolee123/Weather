@@ -2,15 +2,29 @@
     <string name="app_name">Weather</string>
     <string name="appwidget">Loading</string>
     <string name="add_widget">Add widget</string>
-    <string name="channel_name">Weather</string>
-    <string name="channel_description">Service for weather app</string>
     <string name="foreignButton">foreign Weather</string>
     <string name="updated_by_local_time">updated by local time</string>
     <string name="hourly_weather">Hourly Weather</string>
-    <string name="editText">City Name...</string>
+    <string name="editText">City Name</string>
     <string name="add_weather">Add weather</string>
     <string name="show_weather_button">Show Weather</string>
     <string name="add_weather_button">ADD</string>
     <string name="five_day_weather">5 Day Weather</string>
+    <string name="temperature">Temperature</string>
+    <string name="humidity">Humidity</string>
+    <string name="feels_like">Feels like</string>
+    <string name="wind">Wind</string>
+    <string name="widget_error">Error, please restart the app</string>
+    <string name="widget_last_update">Last update: </string>
+    <string name="no_result_alertdialog_title">No Result</string>
+    <string name="cityname_message_alertdialog">Please Add new city</string>
+    <string name="foreignweather_Toast">"You deleted weather information from "</string>
+    <string name="location_not_support">This location is not supported</string>
+    <string name="is_added">is added to foreign weather</string>
+    <string name="no_data_return">No data return from this location</string>
+    <string name="permission_message">Please run the app again and grant the required permission.</string>
+    <string name="not_supported">" is not supported"</string>
+    <string name="empty_city_input_message">Please input a city name.</string>
+    <string name="no_location">Cannot get your location</string>
 
 </resources>

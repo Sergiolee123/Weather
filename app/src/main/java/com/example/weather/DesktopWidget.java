@@ -48,17 +48,17 @@ public class DesktopWidget extends AppWidgetProvider {
             }
             i = 0;
             do{
-                //update the weather by last saved latitude and longitude
-                WeatherList.updateWeather(lat,lon);
                 //get the reference of the local weather information
                 weatherInfo = WeatherList.getWeather();
                 //if the reference is not null, exit the while loop
                 if(weatherInfo != null)
                     break;
+                //update the weather by last saved latitude and longitude
+                WeatherList.updateWeather(lat,lon);
                 i++;
                 //if the weather is still null after trying 10 times to update, show error message
                 if(i>10){
-                    views.setTextViewText(R.id.appwidget_Location, "Error, please restart the app");
+                    views.setTextViewText(R.id.appwidget_Location, context.getText(R.string.widget_error));
                     views.setTextViewText(R.id.appwidget_temp, "");
                     views.setTextViewText(R.id.appwidget_updateTime, "");
                     appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -77,7 +77,7 @@ public class DesktopWidget extends AppWidgetProvider {
             views.setTextViewText(R.id.appwidget_Location, weatherInfo.getName() + " ");
             views.setTextViewText(R.id.appwidget_temp, weatherInfo.getTemp() + "°C ");
             views.setTextViewText(R.id.appwidget_updateTime
-                    , "Last update: " + weatherInfo.getDisplayDayTime());
+                    , context.getText(R.string.widget_last_update) + weatherInfo.getDisplayDayTime());
             // Instruct the widget manager to update the widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
         }).start();

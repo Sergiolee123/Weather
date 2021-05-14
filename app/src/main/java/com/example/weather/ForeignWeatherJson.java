@@ -7,7 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
-
+//use Callable to return a weatherInfo object
 public class ForeignWeatherJson extends WeatherJson implements Callable<WeatherInfo> {
 
     private String TAG = "WeatherInfo";
@@ -81,7 +81,7 @@ public class ForeignWeatherJson extends WeatherJson implements Callable<WeatherI
                     w.setWindSpeed(windSpeed);
                     w.setTimeZoneOffset(Integer.parseInt(timeZoneOffset));
 
-                    // Add the object to the list
+                    // Add the object to the foreignWeatherList
                     WeatherList.foreignWeatherList.add(w);
 
                 } catch (final JSONException e) {

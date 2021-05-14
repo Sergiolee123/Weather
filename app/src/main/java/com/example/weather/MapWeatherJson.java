@@ -7,17 +7,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
-
+//use Callable to return a weatherInfo object
 public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo> {
 
     final String TAG = "Map";
     private  String lat, lon;
-
+    //for google map weather update, get the latitude amd longitude from google map
     public MapWeatherJson(String lat, String lon) {
         this.lat = lat;
         this.lon = lon;
     }
-
+    //get the location weather info
     protected String[] makeRequest() {
         StringBuilder weatherUrl = new StringBuilder();
         String apiKey = "6edd96d498ffab01ff671f39d92df7c1";
@@ -31,7 +31,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
 
         return new String[]{getRequest(weatherUrl.toString())};
     }
-
+    //use call() to return a weatherInfo object
     @Override
     public WeatherInfo call(){
 
@@ -47,7 +47,6 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
                 String dayTime = jsonObj.getString("dt");
                 String timeZoneOffset = jsonObj.getString("timezone");
 
-                // Getting JSON
                 JSONObject main = jsonObj.getJSONObject("main");
                 String temp = main.getString("temp");
                 String feelsLike = main.getString("feels_like");
@@ -59,7 +58,6 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
                 JSONObject ww = weather.getJSONObject(0);
                 String weatherIcon = ww.getString("main");
 
-                // JSON Object
                 JSONObject wind = jsonObj.getJSONObject("wind");
                 String windSpeed = wind.getString("speed");
 
@@ -75,7 +73,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
                 w.setDayTime(dayTime);
                 w.setWindSpeed(windSpeed);
                 w.setTimeZoneOffset(Integer.parseInt(timeZoneOffset));
-
+                //return the the WeatherInfo object
                 return w;
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error1: " + e.getMessage());
@@ -83,7 +81,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
         } else {
             Log.e(TAG, "Couldn't get json from server.");
         }
-
+        //if there is no json data returned from the API, return null
         return null;
     }
 }

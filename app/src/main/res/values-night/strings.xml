@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="channel_name">Weather</string>
-    <string name="channel_description">Service for weather app</string>
+
 </resources>

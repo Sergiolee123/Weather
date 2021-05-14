@@ -14,7 +14,7 @@ import java.net.URL;
 
 public abstract class WeatherJson{
     private static final String TAG = "WeatherJson";
-
+    //get the json data from the URL
     protected String getRequest(String jsonUrl){
         String response = null;
         try {
@@ -38,7 +38,7 @@ public abstract class WeatherJson{
         return response;
 
     }
-
+    //read the response and convert to String
     protected String inputStreamToString(InputStream input) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder result = new StringBuilder();
@@ -59,7 +59,7 @@ public abstract class WeatherJson{
         }
         return result.toString();
     }
-
+    //subClass must override makeRequest method
     protected abstract String[] makeRequest();
 
 

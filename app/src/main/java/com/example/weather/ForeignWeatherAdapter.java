@@ -60,7 +60,7 @@ public class ForeignWeatherAdapter extends RecyclerView.Adapter<ForeignWeatherAd
             //update the recycle view
             notifyItemRangeChanged(viewHolder.getAdapterPosition(), foreignWeatherList.size());
             //use toast to inform the user that he deleted a weather data
-            Toast toast = Toast.makeText(context, "You deleted weather information from "
+            Toast toast = Toast.makeText(context, context.getText(R.string.foreignweather_Toast)
                     + weatherInfo.getName(), Toast.LENGTH_LONG);
             toast.show();
         });

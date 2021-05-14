@@ -36,8 +36,8 @@ public class ForeignWeatherActivity extends AppCompatActivity {
         }else{
             //if no city is requested, ask the user the add new city
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("No Result");
-            builder.setMessage("Please Add new city");
+            builder.setTitle(getText(R.string.no_result_alertdialog_title));
+            builder.setMessage(getText(R.string.cityname_message_alertdialog));
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }

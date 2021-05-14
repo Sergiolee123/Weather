@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             case MY_PERMISSIONS_REQUEST_LOCATION:
                 //if user didn't give the permission, tell the user to give it and close the app
                 if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    String msg = "Please run the app again and grant the required permission.";
+                    CharSequence msg = getText(R.string.permission_message);
                     Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                 }else{
                     //if user gives permission, restart the mainActivity class again
