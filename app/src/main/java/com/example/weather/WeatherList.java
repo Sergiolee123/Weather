@@ -24,7 +24,10 @@ public class WeatherList{
             new ThreadPoolExecutor.AbortPolicy());
 
     public static WeatherInfo getWeather(){
+        if(!localWeatherList.isEmpty())
             return localWeatherList.get(0);
+        else
+            return null;
     }
 
     public static WeatherInfo getWeather(String dayTime){
@@ -42,22 +45,21 @@ public class WeatherList{
     //Update the localWeather
     public static void updateWeather(){
 
-        executorPool.execute(() -> {
             UserLocation userLocation = new UserLocation();
             userLocation.getCurrentLocation();
-        });
+
 
     }
 
-    public static Boolean updateWeather(String city){
+    public static WeatherInfo updateWeather(String city){
 
-        Boolean s;
+        WeatherInfo s;
         try {
-            Future<Boolean> future = executorPool.submit(new ForeignWeatherJson(city));
+            Future<WeatherInfo> future = executorPool.submit(new ForeignWeatherJson(city));
             s = future.get();
             Log.e(TAG, "future: " + s);
         } catch (Exception e) {
-            s = false;
+            s = null;
             e.printStackTrace();
         }
 

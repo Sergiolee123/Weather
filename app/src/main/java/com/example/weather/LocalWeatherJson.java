@@ -32,7 +32,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
         if(widget) {
             response = new String[1];
             StringBuilder weatherUrl = new StringBuilder();
-            weatherUrl.append("http://api.openweathermap.org/data/2.5/weather?lat=")
+            weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
                     .append(lat).append("&lon=").append(lon)
                     .append("&appid=").append(apiKey);
             response[0] = getRequest(weatherUrl.toString());
@@ -40,10 +40,10 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
             response = new String[2];
             StringBuilder weatherUrl = new StringBuilder();
             StringBuilder forecastUrl = new StringBuilder();
-            weatherUrl.append("http://api.openweathermap.org/data/2.5/weather?lat=")
+            weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
                     .append(lat).append("&lon=").append(lon)
                     .append("&appid=").append(apiKey);
-            forecastUrl.append("http://api.openweathermap.org/data/2.5/forecast?lat=")
+            forecastUrl.append("https://api.openweathermap.org/data/2.5/forecast?lat=")
                     .append(lat).append("&lon=").append(lon)
                     .append("&appid=").append(apiKey);
             response[0] = getRequest(weatherUrl.toString());
@@ -88,8 +88,11 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                     String feelsLike = main.getString("feels_like");
                     String tempMin = main.getString("temp_min");
                     String tempMax = main.getString("temp_max");
-                    String pressure = main.getString("pressure");
                     String humidity = main.getString("humidity");
+
+                    JSONArray weather = w.getJSONArray("weather");
+                    JSONObject w2 = weather.getJSONObject(0);
+                    String weatherIcon = w2.getString("main");
 
                     JSONObject wind = w.getJSONObject("wind");
                     String windSpeed = wind.getString("speed");
@@ -101,7 +104,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                     w1.setFeelsLike(feelsLike);
                     w1.setTempMin(tempMin);
                     w1.setTempMax(tempMax);
-                    w1.setPressure(pressure);
+                    w1.setWeatherIcon(weatherIcon);
                     w1.setHumidity(humidity);
                     w1.setDayTime(dayTime);
                     w1.setWindSpeed(windSpeed);
@@ -128,13 +131,16 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 String timeZoneOffset = jsonObj.getString("timezone");
                 Log.e(TAG, "timeoff" + timeZoneOffset);
 
+                JSONArray weather = jsonObj.getJSONArray("weather");
+                JSONObject ww = weather.getJSONObject(0);
+                String weatherIcon = ww.getString("main");
+
                 // Getting JSON
                 JSONObject main = jsonObj.getJSONObject("main");
                 String temp = main.getString("temp");
                 String feelsLike = main.getString("feels_like");
                 String tempMin = main.getString("temp_min");
                 String tempMax = main.getString("temp_max");
-                String pressure = main.getString("pressure");
                 String humidity = main.getString("humidity");
 
                 // JSON Object
@@ -148,7 +154,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 w.setFeelsLike(feelsLike);
                 w.setTempMin(tempMin);
                 w.setTempMax(tempMax);
-                w.setPressure(pressure);
+                w.setWeatherIcon(weatherIcon);
                 w.setHumidity(humidity);
                 w.setDayTime(dayTime);
                 w.setWindSpeed(windSpeed);

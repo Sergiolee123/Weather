@@ -1,17 +1,13 @@
 package com.example.weather;
 
-import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -21,77 +17,20 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.text.DecimalFormat;
 
 
-public class FragmentA extends Fragment implements OnMapReadyCallback {
-
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
     private GoogleMap mgoogleMap;
-    private Button btn, addBtn;
-    private static Double lat=null;
-    private static Double lng=null;
+    protected static Double lat=null;
+    protected static Double lng=null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_a, container, false);
+        View view =  inflater.inflate(R.layout.map_fragment, container, false);
 
         mMapView=(MapView)view.findViewById(R.id.google_map);
-        btn=(Button)view.findViewById(R.id.btn);
-        addBtn=(Button)view.findViewById(R.id.addBtn);
-
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(lat!=null&&lng!=null){
-                    WeatherInfo weatherInfo = WeatherList.updateMapWeather(String.valueOf(lat), String.valueOf(lng));
-                    if(weatherInfo != null){
-                        try {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
-                            builder.setTitle(weatherInfo.getName());
-                            builder.setMessage("Temp: " + weatherInfo.getTemp());
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-
-                        }catch (Exception e){
-                                e.printStackTrace();
-                        }
-                    }
-
-                }
-            }
-        });
-
-        addBtn.setOnClickListener( v -> {
-            WeatherInfo weatherInfo = WeatherList.updateMapWeather(String.valueOf(lat), String.valueOf(lng));
-            if(weatherInfo != null){
-                if(weatherInfo.getName().length() == 0){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
-                    builder.setTitle("");
-                    builder.setMessage("This location is not supported");
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
-                    return;
-                }
-
-                WeatherList.cityName.add(weatherInfo.getName());
-                StoreLocalData storeLocalData = new StoreLocalData();
-                storeLocalData.write(WeatherList.cityName);
-                try {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FragmentA.super.getContext());
-                    builder.setTitle("");
-                    builder.setMessage(weatherInfo.getName() + "is added to foreign weather");
-                    AlertDialog alertDialog = builder.create();
-                    alertDialog.show();
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
 
         initGoogleMap(savedInstanceState);
 

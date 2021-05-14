@@ -13,6 +13,7 @@ import java.util.List;
 public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapter.ViewHolder>{
     private List<WeatherInfo> LocalWeatherList;
     private Context context;
+    //use to get different weatherInfo from the local weather list
     private int size;
 
     public LocalWeatherAdapter(Context context, List<WeatherInfo> weatherList, int size) {
@@ -21,10 +22,10 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
         this.size = size;
     }
 
-    // Create new views (invoked by the layout manager)
+    // Create new views
     @Override
     public LocalWeatherAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view, which defines the UI of the list item
+        // Create a new view, which defines the local CardView UI of the list item
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.local_cardview, viewGroup, false);
 
@@ -32,19 +33,21 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
     }
 
 
-    // Replace the contents of a view (invoked by the layout manager)
+    // Replace the contents of a view
     @Override
     public void onBindViewHolder(LocalWeatherAdapter.ViewHolder viewHolder, final int position) {
         WeatherInfo weatherInfo;
+        //if size is 33, it will get 8 recent weatherInfo object that used for hourly weather
         if(size == 33) {
             weatherInfo = LocalWeatherList.get(position + 1);
-            viewHolder.localImage.setImageResource(R.drawable.ic__1d);
+            viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay() + "     " + weatherInfo.getDisplayHour());
             viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
         }
         else{
+            //show 5 day weather
             weatherInfo = LocalWeatherList.get(position);
-            viewHolder.localImage.setImageResource(R.drawable.ic__1d);
+            viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay());
             viewHolder.txt_localTemperature.setText(new StringBuilder()
                     .append(weatherInfo.getTemp()).append("°C").toString());
@@ -54,7 +57,7 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
 
     }
 
-
+    //get the number of item
     @Override
     public int getItemCount() {
         return LocalWeatherList.size() - size;
@@ -66,7 +69,6 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
 
         public ViewHolder(View view) {
             super(view);
-            // Define click listener for the ViewHolder's View
 
             localImage = (ImageView) view.findViewById(R.id.localImage);
             txt_localTime = (TextView) view.findViewById(R.id.txt_localTime);

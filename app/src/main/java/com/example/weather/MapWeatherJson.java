@@ -2,6 +2,7 @@ package com.example.weather;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,7 +23,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
         String apiKey = "6edd96d498ffab01ff671f39d92df7c1";
 
         if(lat != null & lon != null){
-            weatherUrl.append("http://api.openweathermap.org/data/2.5/weather?lat=")
+            weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
                     .append(lat).append("&lon=").append(lon)
                     .append("&appid=").append(apiKey);
         }
@@ -52,8 +53,11 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
                 String feelsLike = main.getString("feels_like");
                 String tempMin = main.getString("temp_min");
                 String tempMax = main.getString("temp_max");
-                String pressure = main.getString("pressure");
                 String humidity = main.getString("humidity");
+
+                JSONArray weather = jsonObj.getJSONArray("weather");
+                JSONObject ww = weather.getJSONObject(0);
+                String weatherIcon = ww.getString("main");
 
                 // JSON Object
                 JSONObject wind = jsonObj.getJSONObject("wind");
@@ -66,7 +70,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
                 w.setFeelsLike(feelsLike);
                 w.setTempMin(tempMin);
                 w.setTempMax(tempMax);
-                w.setPressure(pressure);
+                w.setWeatherIcon(weatherIcon);
                 w.setHumidity(humidity);
                 w.setDayTime(dayTime);
                 w.setWindSpeed(windSpeed);

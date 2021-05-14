@@ -40,7 +40,6 @@ public class Times {
                 return "null";
         }
         String[] ids = TimeZone.getAvailableIDs(offset*1000);
-        Log.e(TAG, ids[0]);
         sdf.setTimeZone(TimeZone.getTimeZone(ids[0]));
         return sdf.format(date);
     }

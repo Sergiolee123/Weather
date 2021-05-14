@@ -9,12 +9,28 @@ public class WeatherInfo{
     private String feelsLike;
     private String tempMin;
     private String tempMax;
-    private String pressure;
+    private String weatherIcon;
     private String humidity;
     private String dayTime;
     private String windSpeed;
     private int timeZoneOffset;
     private String TAG = "WeatherInfo";
+
+    public int getWeatherIcon() {
+        if(weatherIcon.equals("Clear")){
+            return R.drawable.ic__1d;
+        }else if(weatherIcon.equals("Rain")){
+            return R.drawable.ic_rain;
+        }else if(weatherIcon.equals("Clouds")){
+
+        }
+
+            return R.drawable.ic__1d;
+    }
+
+    public void setWeatherIcon(String weatherIcon) {
+        this.weatherIcon = weatherIcon;
+    }
 
     public void setTimeZoneOffset(int timeZoneOffset) {
         this.timeZoneOffset = timeZoneOffset;
@@ -91,14 +107,6 @@ public class WeatherInfo{
 
     public String getTempMinMax(){
         return getTempMin() + " °C- " + getTempMax() + " °C";
-    }
-
-    public String getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(String pressure) {
-        this.pressure = pressure;
     }
 
     public String getHumidity() {

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scrollView"
     tools:context=".LocalWeatherActivity"
     android:background="#497AAB">
 
@@ -417,23 +418,62 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             />
-        <FrameLayout
+        <RelativeLayout
+            android:id="@+id/map_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/fl_1"
+            android:layout_height="300dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2_20dp">
 
-        </FrameLayout>
+            <fragment
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="-100dp"
+                android:layout_marginBottom="-100dp"
+                android:name="com.google.android.gms.maps.MapFragment"/>
 
+            <ImageView
+                android:id="@+id/transparent_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/googleMapButton"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map_layout"
+            android:orientation="horizontal">
+            <Button
+                android:layout_marginHorizontal="10dp"
+                android:id="@+id/btn"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/show_weather_button"/>
+
+
+            <Button
+                android:id="@+id/addBtn"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/add_weather_button"/>
+
+        </LinearLayout>/
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/inputTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fl_1"
+            app:layout_constraintTop_toBottomOf="@+id/googleMapButton"
             android:orientation="horizontal">
 
             <EditText
