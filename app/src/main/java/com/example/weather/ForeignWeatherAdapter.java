@@ -72,10 +72,10 @@ public class ForeignWeatherAdapter extends RecyclerView.Adapter<ForeignWeatherAd
     public int getItemCount() {
         return foreignWeatherList.size();
     }
+
     //create a ViewHolder for the RecycleView
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt_city_name, txt_temperature, txt_date_time, txt_maxmintemperature
-                , txt_feelslike, txt_speed, txt_humidity;
+        private TextView txt_city_name, txt_temperature, txt_date_time, txt_maxmintemperature, txt_feelslike, txt_speed, txt_humidity;
         private ImageView img_weather;
 
         public ViewHolder(View view) {

@@ -26,16 +26,19 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+
 @SuppressLint("ClickableViewAccessibility")
 public class LocalWeatherActivity extends AppCompatActivity {
 
     private TextView tv_maintemp, tv_time, tv_temp, tv_humid, tv_feel, tv_wind, tv_location;
     private EditText cityInput;
-    private Button foreign, addWeather, btn, addBtn;;
+    private Button foreign, addWeather, btn, addBtn;
+    ;
     private MapFragment a;
     private ScrollView scrollView;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     String TAG = "Local";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,10 +111,10 @@ public class LocalWeatherActivity extends AppCompatActivity {
         }
         //create a array list to store the weatherInfo object for next five days
         ArrayList<WeatherInfo> w = new ArrayList<>();
-        for(int i = 1; i<=5; i++){
+        for (int i = 1; i <= 5; i++) {
             Calendar cal = Calendar.getInstance();
             //use to get day of next five day, add the weatherInfo object from current day +1 to +5
-            cal.add(Calendar.DATE, + i);
+            cal.add(Calendar.DATE, +i);
             @SuppressLint("SimpleDateFormat")
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
             //set the timezone to user default timezone
@@ -119,32 +122,31 @@ public class LocalWeatherActivity extends AppCompatActivity {
             String Date = sdf.format(cal.getTime());
             //use the date to get the weatherInfo object and store it to the array list
             WeatherInfo fiveDayInfo = WeatherList.getWeather(Date);
-            Log.e(TAG,fiveDayInfo + "");
-            if(fiveDayInfo != null){
+            Log.e(TAG, fiveDayInfo + "");
+            if (fiveDayInfo != null) {
                 w.add(fiveDayInfo);
-            }else{
+            } else {
                 /*if the Weather info of the API is not updated to the newest vision,
                 add current date weather data*/
                 java.util.Date d = new Date();
                 sdf.setTimeZone(TimeZone.getDefault());
                 Date = sdf.format(d);
-                w.add(0,WeatherList.getWeather(Date));
+                w.add(0, WeatherList.getWeather(Date));
             }
 
         }
         //set the recycler view for 3 hourly weather
         RecyclerView recyclerView = findViewById(R.id.recycler_local);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new LocalWeatherAdapter(this, WeatherList.localWeatherList,33));
+        recyclerView.setAdapter(new LocalWeatherAdapter(this, WeatherList.localWeatherList, 33));
         //set the recycler view for 5 day weather
         RecyclerView fiveDayRecyclerView = findViewById(R.id.recycler_local5day);
         fiveDayRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fiveDayRecyclerView.setAdapter(new LocalWeatherAdapter(this, w,0));
+        fiveDayRecyclerView.setAdapter(new LocalWeatherAdapter(this, w, 0));
         //set the google app fragment view
-        a=new MapFragment();
+        a = new MapFragment();
         getSupportActionBar().hide();
-        getSupportFragmentManager().beginTransaction().add(R.id.mapView,a).commitAllowingStateLoss();
-
+        getSupportFragmentManager().beginTransaction().add(R.id.mapView, a).commitAllowingStateLoss();
 
 
         //open the foreign weather activity after click
@@ -157,7 +159,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
             //get the user input
             String input = cityInput.getText().toString();
             //show error message if the user input is empty
-            if(input.length() == 0){
+            if (input.length() == 0) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(getText(R.string.no_result_alertdialog_title));
                 builder.setMessage(getText(R.string.empty_city_input_message));
@@ -168,7 +170,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
             //check whether the API supports the user inputted city
             WeatherInfo weatherInfo1 = WeatherList.updateWeather(input.trim());
             //if the api support, add the city name to String set
-            if(weatherInfo1 != null) {
+            if (weatherInfo1 != null) {
                 Log.e("TAG", input);
                 WeatherList.cityName.add(weatherInfo1.getName());
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -186,7 +188,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 www.addAll(WeatherList.foreignWeatherList);
                 WeatherList.foreignWeatherList.removeAll(www);
 
-            }else{
+            } else {
                 //if the city is not supported by the API, show an error message
                 cityInput.setText("");
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -197,35 +199,35 @@ public class LocalWeatherActivity extends AppCompatActivity {
             }
         });
         //shows the weather information from the location which the user clicked on google map
-        btn.setOnClickListener( v ->{
-                //check whether user click a location on the google map, if true, update the location
-                if(MapFragment.lat!=null&& MapFragment.lng!=null){
-                    WeatherInfo weatherInfo1 =
-                            WeatherList.updateMapWeather(String.valueOf(MapFragment.lat), String.valueOf(MapFragment.lng));
-                    if(weatherInfo1 != null){
-                        //if the weather information from API is null, show it to the user
-                        try {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                            builder.setTitle(weatherInfo1.getName());
-                            builder.setMessage( getText(R.string.temperature) + ": " + weatherInfo1.getTemp());
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
+        btn.setOnClickListener(v -> {
+            //check whether user click a location on the google map, if true, update the location
+            if (MapFragment.lat != null && MapFragment.lng != null) {
+                WeatherInfo weatherInfo1 =
+                        WeatherList.updateMapWeather(String.valueOf(MapFragment.lat), String.valueOf(MapFragment.lng));
+                if (weatherInfo1 != null) {
+                    //if the weather information from API is null, show it to the user
+                    try {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setTitle(weatherInfo1.getName());
+                        builder.setMessage(getText(R.string.temperature) + ": " + weatherInfo1.getTemp());
+                        AlertDialog alertDialog = builder.create();
+                        alertDialog.show();
 
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-
-                }else {
-                    CharSequence msg = getText(R.string.map_please_click);
-                    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                 }
+
+            } else {
+                CharSequence msg = getText(R.string.map_please_click);
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+            }
 
         });
 
         //add the city name of the user clicked google map location to the city name String set
-        addBtn.setOnClickListener( v -> {
-            if(MapFragment.lat == null && MapFragment.lng == null){
+        addBtn.setOnClickListener(v -> {
+            if (MapFragment.lat == null && MapFragment.lng == null) {
                 CharSequence msg = getText(R.string.map_please_click);
                 Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                 return;
@@ -234,9 +236,9 @@ public class LocalWeatherActivity extends AppCompatActivity {
             WeatherInfo mapWeatherInfo =
                     WeatherList.updateMapWeather(String.valueOf(MapFragment.lat), String.valueOf(MapFragment.lng));
             //check whether the API supports the user inputted city
-            if(mapWeatherInfo != null){
+            if (mapWeatherInfo != null) {
                 //if there is no city name return, than this city is not supported
-                if(mapWeatherInfo.getName().length() == 0){
+                if (mapWeatherInfo.getName().length() == 0) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setTitle("");
                     builder.setMessage(getText(R.string.location_not_support));
@@ -255,7 +257,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                     AlertDialog alertDialog = builder.create();
                     alertDialog.show();
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {

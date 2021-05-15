@@ -21,25 +21,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private MapView mMapView;
     private GoogleMap mgoogleMap;
-    protected static Double lat=null;
-    protected static Double lng=null;
+    protected static Double lat = null;
+    protected static Double lng = null;
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,  Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.map_fragment, container, false);
+        View view = inflater.inflate(R.layout.map_fragment, container, false);
 
-        mMapView=(MapView)view.findViewById(R.id.google_map);
+        mMapView = (MapView) view.findViewById(R.id.google_map);
 
         initGoogleMap(savedInstanceState);
 
         return view;
     }
 
-    private void initGoogleMap(Bundle savedInstanceState){
+    private void initGoogleMap(Bundle savedInstanceState) {
         Bundle mapViewBundle = null;
-        if(savedInstanceState  !=null){
+        if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle("MapViewBundleKey");
         }
 
@@ -49,32 +49,32 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
-        super.onViewCreated(view,savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         mMapView.onResume();
     }
 
     @Override
-    public void onStart(){
+    public void onStart() {
         super.onStart();
         mMapView.onStart();
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
         mMapView.onStop();
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mgoogleMap=googleMap;
+        mgoogleMap = googleMap;
         mgoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
@@ -82,11 +82,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 markerOptions.position(latLng);
                 DecimalFormat df = new DecimalFormat("#.##");
 
-                lat= latLng.latitude;
-                lng=latLng.longitude;
+                lat = latLng.latitude;
+                lng = latLng.longitude;
 
 
-                 markerOptions.title(df.format(latLng.latitude)+ "," + df.format(latLng.longitude));
+                markerOptions.title(df.format(latLng.latitude) + "," + df.format(latLng.longitude));
 
                 mgoogleMap.clear();
                 mgoogleMap.addMarker(markerOptions);
@@ -96,19 +96,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onPause(){
+    public void onPause() {
         super.onPause();
         mMapView.onPause();
     }
 
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
     }
 
     @Override
-    public void onLowMemory(){
+    public void onLowMemory() {
         super.onLowMemory();
         mMapView.onLowMemory();
     }

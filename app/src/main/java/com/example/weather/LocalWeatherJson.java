@@ -6,51 +6,34 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LocalWeatherJson extends WeatherJson implements Runnable{
+public class LocalWeatherJson extends WeatherJson implements Runnable {
 
     private static final String TAG = "LocalWeatherJson";
     private String lat, lon;
-    private boolean widget;
+
     //for normal weather update
     public LocalWeatherJson(String lat, String lon) {
         this.lat = lat;
         this.lon = lon;
-        widget = false;
-
-    }
-    //for widget weather update
-    public LocalWeatherJson(String lat, String lon, boolean widget) {
-        this.lat = lat;
-        this.lon = lon;
-        this.widget = widget;
 
     }
 
     protected String[] makeRequest() {
         String[] response;
         String apiKey = "6edd96d498ffab01ff671f39d92df7c1";
-        //for widget data update, no need to get forecast weather information, set up the API URL
-        if(widget) {
-            response = new String[1];
-            StringBuilder weatherUrl = new StringBuilder();
-            weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
-                    .append(lat).append("&lon=").append(lon)
-                    .append("&appid=").append(apiKey);
-            response[0] = getRequest(weatherUrl.toString());
-        }else {
-            //for app data update, get both current and 5 day 3 hourly forecast update, set up the API URL
-            response = new String[2];
-            StringBuilder weatherUrl = new StringBuilder();
-            StringBuilder forecastUrl = new StringBuilder();
-            weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
-                    .append(lat).append("&lon=").append(lon)
-                    .append("&appid=").append(apiKey);
-            forecastUrl.append("https://api.openweathermap.org/data/2.5/forecast?lat=")
-                    .append(lat).append("&lon=").append(lon)
-                    .append("&appid=").append(apiKey);
-            response[0] = getRequest(weatherUrl.toString());
-            response[1] = getRequest(forecastUrl.toString());
-        }
+
+        //for app data update, get both current and 5 day 3 hourly forecast update, set up the API URL
+        response = new String[2];
+        StringBuilder weatherUrl = new StringBuilder();
+        StringBuilder forecastUrl = new StringBuilder();
+        weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
+                .append(lat).append("&lon=").append(lon)
+                .append("&appid=").append(apiKey);
+        forecastUrl.append("https://api.openweathermap.org/data/2.5/forecast?lat=")
+                .append(lat).append("&lon=").append(lon)
+                .append("&appid=").append(apiKey);
+        response[0] = getRequest(weatherUrl.toString());
+        response[1] = getRequest(forecastUrl.toString());
 
 
         return response;
@@ -62,9 +45,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
         String weatherStr = null;
         String forecastStr = null;
         //for widget data update, only get the current local time response
-        if(response != null && widget) {
-            weatherStr = response[0];
-        }else if(response != null){
+        if (response != null) {
             //for app data update, only get the current and forecast local time response
             weatherStr = response[0];
             forecastStr = response[1];
@@ -83,7 +64,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 // Getting JSON Array node
                 JSONArray list = jsonObj.getJSONArray("list");
 
-                for(int i=0; i<list.length(); i++ ){
+                for (int i = 0; i < list.length(); i++) {
                     JSONObject w = list.getJSONObject(i);
                     String dayTime = w.getString("dt");
 
@@ -119,11 +100,10 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
                 }
 
 
-
             } catch (final JSONException e) {
                 Log.e(TAG, "Json parsing error2: " + e.getMessage());
             }
-        } else if(!widget){
+        } else {
             Log.e(TAG, "Couldn't get json from server.");
         }
 

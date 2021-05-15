@@ -1,13 +1,11 @@
 package com.example.weather;
 
 import android.Manifest;
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
-
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -24,7 +22,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-public class UserLocation implements OnSuccessListener<Location>{
+public class UserLocation implements OnSuccessListener<Location> {
     //set the permission request code to 1
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 1;
     private FusedLocationProviderClient fusedLocationClient;
@@ -35,7 +33,6 @@ public class UserLocation implements OnSuccessListener<Location>{
             1, 20, TimeUnit.SECONDS,
             new ArrayBlockingQueue<Runnable>(10),
             new ThreadPoolExecutor.AbortPolicy());
-
 
 
     //get user location
@@ -87,16 +84,16 @@ public class UserLocation implements OnSuccessListener<Location>{
     public void onSuccess(Location location) {
         Log.e(TAG, "fused location success" + location);
         //if the getLastLocation success
-        if(location != null){
+        if (location != null) {
             Log.e(TAG, "get location");
             lon = location.getLongitude();
             lat = location.getLatitude();
             //store the value of lon, lat to local data
             StoreLocalData storeLocalData = new StoreLocalData();
-            storeLocalData.write(String.valueOf(lat),String.valueOf(lon));
+            storeLocalData.write(String.valueOf(lat), String.valueOf(lon));
             //start the Thread to handle json
             Future<Boolean> future = executorPool.submit(new LocalWeatherJson(String.valueOf(lat),
-                    String.valueOf(lon)),true);
+                    String.valueOf(lon)), true);
             //use future.get() to let the UI thread to wait for the data update finished
             try {
                 future.get();
@@ -107,7 +104,7 @@ public class UserLocation implements OnSuccessListener<Location>{
             Intent intent = new Intent(ContextData.getActivity(), LocalWeatherActivity.class);
             ContextData.getActivity().startActivity(intent);
 
-        }else if (location == null){
+        } else if (location == null) {
             //if the location is null, retry to get the location
             Intent intent = new Intent(ContextData.getActivity(), MainActivity.class);
             ContextData.getActivity().startActivity(intent);

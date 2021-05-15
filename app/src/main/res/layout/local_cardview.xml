@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/localImage"
-            android:layout_width="52px"
-            android:layout_height="52px"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@drawable/ic__1d"
             android:layout_gravity="left"
             />

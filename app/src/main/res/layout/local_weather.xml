@@ -112,7 +112,7 @@
             android:id="@+id/tv_temp"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white2"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:paddingTop="5dp"
             android:paddingLeft="8dp"
@@ -155,7 +155,7 @@
             android:id="@+id/tv_humid"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white2"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:paddingTop="5dp"
             android:paddingLeft="8dp"
@@ -252,7 +252,7 @@
             android:id="@+id/tv_feel"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/white2"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:includeFontPadding="false"
             android:layout_marginTop="5dp"
@@ -294,7 +294,7 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:includeFontPadding="false"
-            android:textColor="@color/white2"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_marginTop="5dp"
             android:paddingLeft="8dp"
@@ -455,6 +455,8 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/button"
+                android:textColor="@color/black"
                 android:text="@string/show_weather_button"/>
 
 
@@ -464,6 +466,8 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/button"
+                android:textColor="@color/black"
                 android:text="@string/add_weather_button"/>
 
         </LinearLayout>/
@@ -493,6 +497,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/add_weather"
                 android:layout_marginHorizontal="10dp"
+                android:backgroundTint="@color/button"
+                android:textColor="@color/black"
                 android:layout_weight="0.5" />
         </LinearLayout>
 
@@ -505,6 +511,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginHorizontal="10dp"
             android:text="@string/foreignButton"
+            android:backgroundTint="@color/button"
+            android:textColor="@color/black"
             app:layout_constraintTop_toBottomOf="@id/inputTextView"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

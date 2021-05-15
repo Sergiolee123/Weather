@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapter.ViewHolder>{
+public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapter.ViewHolder> {
     private List<WeatherInfo> LocalWeatherList;
     private Context context;
     //use to get different weatherInfo from the local weather list
@@ -38,21 +39,19 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
     public void onBindViewHolder(LocalWeatherAdapter.ViewHolder viewHolder, final int position) {
         WeatherInfo weatherInfo;
         //if size is 33, it will get 8 recent weatherInfo object that used for hourly weather
-        if(size == 33) {
+        if (size == 33) {
             weatherInfo = LocalWeatherList.get(position + 1);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay() + "     " + weatherInfo.getDisplayHour());
             viewHolder.txt_localTemperature.setText(new StringBuilder()
                     .append(weatherInfo.getTemp()).append("°C").toString());
-        }
-        else{
+        } else {
             //show 5 day weather
             weatherInfo = LocalWeatherList.get(position);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay());
             viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
         }
-
 
 
     }

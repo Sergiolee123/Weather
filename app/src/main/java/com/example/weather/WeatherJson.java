@@ -12,10 +12,11 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public abstract class WeatherJson{
+public abstract class WeatherJson {
     private static final String TAG = "WeatherJson";
+
     //get the json data from the URL
-    protected String getRequest(String jsonUrl){
+    protected String getRequest(String jsonUrl) {
         String response = null;
         try {
             URL url = new URL(jsonUrl);
@@ -38,6 +39,7 @@ public abstract class WeatherJson{
         return response;
 
     }
+
     //read the response and convert to String
     protected String inputStreamToString(InputStream input) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
@@ -59,6 +61,7 @@ public abstract class WeatherJson{
         }
         return result.toString();
     }
+
     //subClass must override makeRequest method
     protected abstract String[] makeRequest();
 

@@ -30,17 +30,29 @@
         android:layout_weight="2"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/appwidget_temp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:layout_marginEnd="10dp"
-            android:background="?attr/appWidgetBackgroundColor"
-            android:contentDescription="@string/appwidget"
-            android:textColor="?attr/appWidgetTextColor"
-            android:textSize="24sp" />
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/widgetLocalImage"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic__1d" />
+
+            <TextView
+                android:id="@+id/appwidget_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:background="?attr/appWidgetBackgroundColor"
+                android:contentDescription="@string/appwidget"
+                android:textColor="?attr/appWidgetTextColor"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/appwidget_updateTime"

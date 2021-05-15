@@ -1,8 +1,6 @@
 package com.example.weather;
 
 
-
-
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                     CharSequence msg = getText(R.string.permission_message);
                     Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-                }else{
+                } else {
                     //if user gives permission, restart the mainActivity class again
                     Intent intent = new Intent(this, MainActivity.class);
                     this.startActivity(intent);

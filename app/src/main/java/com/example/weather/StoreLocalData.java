@@ -7,12 +7,12 @@ import java.util.Set;
 
 public class StoreLocalData {
 
-    public boolean write(Set<String> s){
+    public boolean write(Set<String> s) {
         //get a shared preferences object with key data, if there is no such object, create a new one
-        SharedPreferences sharedPreferences= ContextData.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = ContextData.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //write the String set value into the shared preferences
-        editor.putStringSet("CityName",s);
+        editor.putStringSet("CityName", s);
         //commit the change
         return editor.commit();
     }
@@ -20,11 +20,11 @@ public class StoreLocalData {
 
     public boolean write(String lat, String lon) {
         //get a shared preferences object with key data, if there is no such object, create a new one
-        SharedPreferences sharedPreferences= ContextData.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = ContextData.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //write the lat and lon value into the shared preferences
-        editor.putString("lat",lat);
-        editor.putString("lon",lon);
+        editor.putString("lat", lat);
+        editor.putString("lon", lon);
         //commit the change
         return editor.commit();
     }

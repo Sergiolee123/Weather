@@ -15,18 +15,18 @@
     <string name="add_weather">新增天氣</string>
     <string name="show_weather_button">顯示天氣</string>
     <string name="add_weather_button">加入</string>
-    <string name="widget_error">Error, please restart the app</string>
-    <string name="widget_last_update">"Last update: "</string>
-    <string name="no_result_alertdialog_title">No Result</string>
-    <string name="cityname_message_alertdialog">Please Add new city</string>
-    <string name="foreignweather_Toast">"You deleted weather information from "</string>
-    <string name="location_not_support">This location is not supported</string>
-    <string name="is_added"> is added to foreign weather</string>
-    <string name="no_data_return">No data return from this location</string>
-    <string name="permission_message">Please run the app again and grant the required permission.</string>
-    <string name="not_supported">" is not supported"</string>
-    <string name="empty_city_input_message">Please input a city name.</string>
-    <string name="no_location">Cannot get your location</string>
-    <string name="map_please_click">Please click on the map</string>
+    <string name="widget_error">錯誤,請重啟應用程式</string>
+    <string name="widget_last_update">"最後更新</string>
+    <string name="no_result_alertdialog_title">沒有結果</string>
+    <string name="cityname_message_alertdialog">請新增城市</string>
+    <string name="foreignweather_Toast">"妳已刪除天氣資訊 "</string>
+    <string name="location_not_support">不支援此位置。</string>
+    <string name="is_added">已添加到外國天氣</string>
+    <string name="no_data_return">沒有數據從該位置返回</string>
+    <string name="permission_message">請再次運行該應用並授予所需的權限</string>
+    <string name="not_supported">"不支援"</string>
+    <string name="empty_city_input_message">請輸入城市名稱</string>
+    <string name="no_location">無法獲取您的位置</string>
+    <string name="map_please_click">請點擊地圖</string>
 
 </resources>

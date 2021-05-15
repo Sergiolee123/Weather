@@ -17,8 +17,8 @@
     <color name="colorAccent">#94B4CE</color>
     <color name="textColorPrimary">#ffffff</color>
     <color name="windowBackground">#ffffff</color>
-    <color name="navigationBarcolor">#000000</color>
+    <color name="navigationBarColor">#000000</color>
     <color name="red1">#ca0d0d</color>
     <color name="blue5">#515372</color>
-
+    <color name="button">#75EAB6</color>
 </resources>

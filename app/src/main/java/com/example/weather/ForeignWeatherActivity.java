@@ -15,25 +15,25 @@ import java.util.HashSet;
 public class ForeignWeatherActivity extends AppCompatActivity {
     //This is the layout of foreign weather
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.foreign_weather);
         //get all city name requested by user from local store
         SharedPreferences sharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE);
         //make sure the String set from local store is not null
-        if(sharedPreferences.getStringSet("CityName",null) != null)
+        if (sharedPreferences.getStringSet("CityName", null) != null)
             //get the String set
-            WeatherList.cityName = new HashSet<>(sharedPreferences.getStringSet("CityName",null));
+            WeatherList.cityName = new HashSet<>(sharedPreferences.getStringSet("CityName", null));
         else
             //if the string set from local storage is null, set the cityName String set to null
             WeatherList.cityName = null;
         //if the cityName String set is not null, update each city weather.
-        if(WeatherList.cityName != null) {
+        if (WeatherList.cityName != null) {
             for (String s : WeatherList.cityName) {
-                Log.e("FWK", s );
+                Log.e("FWK", s);
                 WeatherList.updateWeather(s);
             }
-        }else{
+        } else {
             //if no city is requested, ask the user the add new city
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getText(R.string.no_result_alertdialog_title));
@@ -46,6 +46,7 @@ public class ForeignWeatherActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new ForeignWeatherAdapter(this, WeatherList.foreignWeatherList));
     }
+
     @Override
     protected void onStop() {
         super.onStop();

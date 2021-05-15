@@ -7,22 +7,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.concurrent.Callable;
+
 //use Callable to return a weatherInfo object
 public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo> {
 
     final String TAG = "Map";
-    private  String lat, lon;
+    private String lat, lon;
+
     //for google map weather update, get the latitude amd longitude from google map
     public MapWeatherJson(String lat, String lon) {
         this.lat = lat;
         this.lon = lon;
     }
+
     //get the location weather info
     protected String[] makeRequest() {
         StringBuilder weatherUrl = new StringBuilder();
         String apiKey = "6edd96d498ffab01ff671f39d92df7c1";
 
-        if(lat != null & lon != null){
+        if (lat != null & lon != null) {
             weatherUrl.append("https://api.openweathermap.org/data/2.5/weather?lat=")
                     .append(lat).append("&lon=").append(lon)
                     .append("&appid=").append(apiKey);
@@ -31,9 +34,10 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
 
         return new String[]{getRequest(weatherUrl.toString())};
     }
+
     //use call() to return a weatherInfo object
     @Override
-    public WeatherInfo call(){
+    public WeatherInfo call() {
 
         String[] response = makeRequest();
 
