@@ -29,7 +29,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.map_fragment, container, false);
-
+        //the mapView used in the fragment that requires View object to retrieve the mapView
         mMapView = (MapView) view.findViewById(R.id.google_map);
 
         initGoogleMap(savedInstanceState);
@@ -37,9 +37,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+    //set up for the GoogleMap initialization
     private void initGoogleMap(Bundle savedInstanceState) {
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
+            //"MapViewBundleKey" is the Google API key for google map stored in values subfolder
             mapViewBundle = savedInstanceState.getBundle("MapViewBundleKey");
         }
 
@@ -78,6 +80,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mgoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                //set the Marker title to show its Location
                 MarkerOptions markerOptions = new MarkerOptions();
                 markerOptions.position(latLng);
                 DecimalFormat df = new DecimalFormat("#.##");
@@ -85,10 +88,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 lat = latLng.latitude;
                 lng = latLng.longitude;
 
-
+                //Display the marker location when clicked the marker
                 markerOptions.title(df.format(latLng.latitude) + "," + df.format(latLng.longitude));
 
                 mgoogleMap.clear();
+                //Add the Marker on the Map after clicking on the map once
                 mgoogleMap.addMarker(markerOptions);
                 //send data
             }
