@@ -36,7 +36,7 @@ public class WeatherList {
             return null;
     }
 
-    //get a weatherInfo object by specify date
+    //get a local weatherInfo object by specify date
     public static WeatherInfo getWeather(String dayTime) {
 
         for (WeatherInfo w : localWeatherList) {
@@ -49,7 +49,7 @@ public class WeatherList {
     }
 
 
-    //Update the location data
+    //Update the location data and weather data
     public static void updateWeather() {
         //update the user location
         UserLocation userLocation = new UserLocation();

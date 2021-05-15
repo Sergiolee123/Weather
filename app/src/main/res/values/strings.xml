@@ -27,5 +27,6 @@
     <string name="empty_city_input_message">Please input a city name.</string>
     <string name="no_location">Cannot get your location</string>
     <string name="map_please_click">Please click on the map</string>
+    <string name="gps_not_open">Please open your GPS</string>
 
 </resources>

@@ -68,7 +68,7 @@ public class WeatherInfo {
 
     //return the speed of wind
     public String getWindSpeed() {
-        return String.format("%.2f m/s WNW", (Double.parseDouble(windSpeed)));
+        return String.format("%.2f m/s", (Double.parseDouble(windSpeed)));
     }
 
     public void setWindSpeed(String windSpeed) {
@@ -99,6 +99,7 @@ public class WeatherInfo {
         this.name = name;
     }
 
+    //-273 to covert kelvin to celsius
     public String getTemp() {
         return String.format("%.0f", (Double.parseDouble(temp) - 273));
     }
@@ -107,6 +108,7 @@ public class WeatherInfo {
         this.temp = temp;
     }
 
+    //-273 to covert kelvin to celsius
     public String getFeelsLike() {
         return String.format("%.0f °C", (Double.parseDouble(feelsLike) - 273));
     }
@@ -115,6 +117,7 @@ public class WeatherInfo {
         this.feelsLike = feelsLike;
     }
 
+    //-273 to covert kelvin to celsius
     public String getTempMin() {
         return String.format("%.1f", (Double.parseDouble(tempMin) - 273));
     }
@@ -123,6 +126,7 @@ public class WeatherInfo {
         this.tempMin = tempMin;
     }
 
+    //-273 to covert kelvin to celsius
     public String getTempMax() {
         return String.format("%.1f", (Double.parseDouble(tempMax) - 273));
     }

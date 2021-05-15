@@ -28,5 +28,6 @@
     <string name="empty_city_input_message">請輸入城市名稱</string>
     <string name="no_location">無法獲取您的位置</string>
     <string name="map_please_click">請點擊地圖</string>
+    <string name="gps_not_open">請開啟你的定位服務</string>
 
 </resources>

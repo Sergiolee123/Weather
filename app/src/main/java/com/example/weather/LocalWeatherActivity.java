@@ -156,7 +156,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
         });
 
         addWeather.setOnClickListener(v -> {
-            //get the user input
+            //get the user input of edit text
             String input = cityInput.getText().toString();
             //show error message if the user input is empty
             if (input.length() == 0) {
@@ -170,7 +170,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
             //check whether the API supports the user inputted city
             WeatherInfo weatherInfo1 = WeatherList.updateWeather(input.trim());
             //if the api support, add the city name to String set
-            if (weatherInfo1 != null) {
+            if (weatherInfo1 != null && weatherInfo1.getName().length() != 0) {
                 Log.e("TAG", input);
                 WeatherList.cityName.add(weatherInfo1.getName());
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -283,7 +283,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 .getAppWidgetIds(new ComponentName(getApplication(), DesktopWidget.class));
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
         sendBroadcast(intent);
-        //open the main activity again to perform update
+        //open the main activity again to perform local weather data update
         Intent intent2 = new Intent(this, MainActivity.class);
         this.startActivity(intent2);
         //close this activity

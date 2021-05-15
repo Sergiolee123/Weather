@@ -1,9 +1,11 @@
 package com.example.weather;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -49,6 +51,18 @@ public class UserLocation implements OnSuccessListener<Location> {
 
         } else {
             Log.e(TAG, "fused location");
+            //find out whether the GPS is open
+            final LocationManager manager =
+                    (LocationManager) ContextData.getActivity().getSystemService(Context.LOCATION_SERVICE );
+            //if the GPS is not provided, close the app and tell user to open GPS
+            if ( !manager.isProviderEnabled( LocationManager.GPS_PROVIDER ) ) {
+                Toast toast = Toast.makeText(ContextData.getActivity(),
+                        ContextData.getActivity().getText(R.string.gps_not_open)
+                        , Toast.LENGTH_LONG);
+                toast.show();
+                ContextData.getActivity().finish();
+                return;
+            }
             //force the google map service API to update user's location
             LocationRequest mLocationRequest = LocationRequest.create();
             mLocationRequest.setInterval(60000);
@@ -104,7 +118,7 @@ public class UserLocation implements OnSuccessListener<Location> {
             Intent intent = new Intent(ContextData.getActivity(), LocalWeatherActivity.class);
             ContextData.getActivity().startActivity(intent);
 
-        } else if (location == null) {
+        } else {
             //if the location is null, retry to get the location
             Intent intent = new Intent(ContextData.getActivity(), MainActivity.class);
             ContextData.getActivity().startActivity(intent);

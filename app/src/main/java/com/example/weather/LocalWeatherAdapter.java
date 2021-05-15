@@ -14,7 +14,7 @@ import java.util.List;
 public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapter.ViewHolder> {
     private List<WeatherInfo> LocalWeatherList;
     private Context context;
-    //use to get different weatherInfo from the local weather list
+    //size is used to get different weatherInfo from the local weather list
     private int size;
 
     public LocalWeatherAdapter(Context context, List<WeatherInfo> weatherList, int size) {
@@ -40,17 +40,21 @@ public class LocalWeatherAdapter extends RecyclerView.Adapter<LocalWeatherAdapte
         WeatherInfo weatherInfo;
         //if size is 33, it will get 8 recent weatherInfo object that used for hourly weather
         if (size == 33) {
+            //the index 0 is for current weather, so the position need to add 1
             weatherInfo = LocalWeatherList.get(position + 1);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
-            viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay() + "     " + weatherInfo.getDisplayHour());
+            viewHolder.txt_localTime.setText(new StringBuilder().append(weatherInfo.getDayTimeByDay())
+                    .append("   ").append(weatherInfo.getDisplayHour()).toString());
             viewHolder.txt_localTemperature.setText(new StringBuilder()
                     .append(weatherInfo.getTemp()).append("°C").toString());
+
         } else {
             //show 5 day weather
             weatherInfo = LocalWeatherList.get(position);
             viewHolder.localImage.setImageResource(weatherInfo.getWeatherIcon());
             viewHolder.txt_localTime.setText(weatherInfo.getDayTimeByDay());
-            viewHolder.txt_localTemperature.setText(weatherInfo.getTempMinMax());
+            viewHolder.txt_localTemperature.setText(new StringBuilder()
+                    .append(weatherInfo.getTemp()).append("°C").toString());
         }
 
 

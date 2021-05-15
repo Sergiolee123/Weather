@@ -91,7 +91,7 @@ public class DesktopWidget extends AppWidgetProvider {
         //put the appWidgetId that needs to be update to the intent extra date.
         intent.putExtra("id", appWidgetId);
         Log.e("DWID", String.valueOf(intent.getIntExtra("id", 0)));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, appWidgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //if the user click the time on the widget, the widget will update
         views.setOnClickPendingIntent(R.id.appwidget_updateTime, pendingIntent);
 
