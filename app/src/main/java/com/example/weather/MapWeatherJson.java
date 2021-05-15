@@ -56,7 +56,7 @@ public class MapWeatherJson extends WeatherJson implements Callable<WeatherInfo>
 
                 JSONArray weather = jsonObj.getJSONArray("weather");
                 JSONObject ww = weather.getJSONObject(0);
-                String weatherIcon = ww.getString("main");
+                String weatherIcon = ww.getString("icon");
 
                 JSONObject wind = jsonObj.getJSONObject("wind");
                 String windSpeed = wind.getString("speed");

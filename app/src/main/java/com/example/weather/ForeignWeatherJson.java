@@ -62,7 +62,7 @@ public class ForeignWeatherJson extends WeatherJson implements Callable<WeatherI
                     //get the Weather conditions e.g. rain, clear
                     JSONArray weather = jsonObj.getJSONArray("weather");
                     JSONObject ww = weather.getJSONObject(0);
-                    String weatherIcon = ww.getString("main");
+                    String weatherIcon = ww.getString("icon");
 
                     //get the speed of wind
                     JSONObject wind = jsonObj.getJSONObject("wind");

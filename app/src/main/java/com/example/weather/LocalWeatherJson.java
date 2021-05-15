@@ -96,7 +96,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
 
                     JSONArray weather = w.getJSONArray("weather");
                     JSONObject w2 = weather.getJSONObject(0);
-                    String weatherIcon = w2.getString("main");
+                    String weatherIcon = w2.getString("icon");
 
                     JSONObject wind = w.getJSONObject("wind");
                     String windSpeed = wind.getString("speed");
@@ -137,7 +137,7 @@ public class LocalWeatherJson extends WeatherJson implements Runnable{
 
                 JSONArray weather = jsonObj.getJSONArray("weather");
                 JSONObject ww = weather.getJSONObject(0);
-                String weatherIcon = ww.getString("main");
+                String weatherIcon = ww.getString("icon");
 
 
                 JSONObject main = jsonObj.getJSONObject("main");

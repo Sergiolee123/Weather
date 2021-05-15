@@ -20,11 +20,12 @@
     <string name="cityname_message_alertdialog">Please Add new city</string>
     <string name="foreignweather_Toast">"You deleted weather information from "</string>
     <string name="location_not_support">This location is not supported</string>
-    <string name="is_added">is added to foreign weather</string>
+    <string name="is_added"> is added to foreign weather</string>
     <string name="no_data_return">No data return from this location</string>
     <string name="permission_message">Please run the app again and grant the required permission.</string>
     <string name="not_supported">" is not supported"</string>
     <string name="empty_city_input_message">Please input a city name.</string>
     <string name="no_location">Cannot get your location</string>
+    <string name="map_please_click">Please click on the map</string>
 
 </resources>

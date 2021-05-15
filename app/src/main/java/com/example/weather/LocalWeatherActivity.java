@@ -76,13 +76,13 @@ public class LocalWeatherActivity extends AppCompatActivity {
                     case MotionEvent.ACTION_DOWN:
 
                     case MotionEvent.ACTION_MOVE:
-                        // Disallow ScrollView to intercept touch events.
+                        // Disallow ScrollView to intercept touch events
                         scrollView.requestDisallowInterceptTouchEvent(true);
                         // Disable touch on transparent view
                         return false;
 
                     case MotionEvent.ACTION_UP:
-                        // Allow ScrollView to intercept touch events.
+                        // Allow ScrollView to intercept touch events
                         scrollView.requestDisallowInterceptTouchEvent(false);
                         return true;
 
@@ -124,7 +124,7 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 w.add(fiveDayInfo);
             }else{
                 /*if the Weather info of the API is not updated to the newest vision,
-                add current date data*/
+                add current date weather data*/
                 java.util.Date d = new Date();
                 sdf.setTimeZone(TimeZone.getDefault());
                 Date = sdf.format(d);
@@ -166,11 +166,16 @@ public class LocalWeatherActivity extends AppCompatActivity {
                 return;
             }
             //check whether the API supports the user inputted city
-            WeatherInfo weatherInfo1 = WeatherList.updateWeather(input);
+            WeatherInfo weatherInfo1 = WeatherList.updateWeather(input.trim());
             //if the api support, add the city name to String set
             if(weatherInfo1 != null) {
                 Log.e("TAG", input);
                 WeatherList.cityName.add(weatherInfo1.getName());
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("");
+                builder.setMessage(weatherInfo1.getName() + getText(R.string.is_added));
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
                 StoreLocalData sl = new StoreLocalData();
                 //store the new city name to local data
                 sl.write(WeatherList.cityName);
@@ -211,11 +216,21 @@ public class LocalWeatherActivity extends AppCompatActivity {
                         }
                     }
 
+                }else {
+                    CharSequence msg = getText(R.string.map_please_click);
+                    Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                 }
 
         });
+
         //add the city name of the user clicked google map location to the city name String set
         addBtn.setOnClickListener( v -> {
+            if(MapFragment.lat == null && MapFragment.lng == null){
+                CharSequence msg = getText(R.string.map_please_click);
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+                return;
+            }
+
             WeatherInfo mapWeatherInfo =
                     WeatherList.updateMapWeather(String.valueOf(MapFragment.lat), String.valueOf(MapFragment.lng));
             //check whether the API supports the user inputted city

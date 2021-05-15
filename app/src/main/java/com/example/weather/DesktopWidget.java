@@ -49,12 +49,11 @@ public class DesktopWidget extends AppWidgetProvider {
             i = 0;
             do{
                 //get the reference of the local weather information
-                weatherInfo = WeatherList.getWeather();
+                weatherInfo = WeatherList.updateMapWeather(lat,lon);
                 //if the reference is not null, exit the while loop
                 if(weatherInfo != null)
                     break;
                 //update the weather by last saved latitude and longitude
-                WeatherList.updateWeather(lat,lon);
                 i++;
                 //if the weather is still null after trying 10 times to update, show error message
                 if(i>10){

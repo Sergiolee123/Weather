@@ -23,7 +23,7 @@ public class WeatherInfo{
 
     //return the weather icon for different weather condition
     public int getWeatherIcon() {
-        if(weatherIcon.equals("Clear")){
+        if(weatherIcon.equals("01d")){
             return R.drawable.ic__1d;
         }else if(weatherIcon.equals("Rain")){
             return R.drawable.ic_rain;
