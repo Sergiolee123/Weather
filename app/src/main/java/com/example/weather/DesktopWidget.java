@@ -36,7 +36,7 @@ public class DesktopWidget extends AppWidgetProvider {
                     e.printStackTrace();
                 }
                 //get the location from local storage that stored by the application
-                SharedPreferences sharedPreferences = context.getSharedPreferences("Data", Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = context.getSharedPreferences("LocationData", Context.MODE_PRIVATE);
                 lat = sharedPreferences.getString("lat", null);
                 lon = sharedPreferences.getString("lon", null);
                 i++;

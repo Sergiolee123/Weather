@@ -19,20 +19,30 @@ public class ForeignWeatherActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.foreign_weather);
         //get all city name requested by user from local store
-        SharedPreferences sharedPreferences = getSharedPreferences("Data", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("CityData", Context.MODE_PRIVATE);
         //make sure the String set from local store is not null
-        if (sharedPreferences.getStringSet("CityName", null) != null)
-            //get the String set
-            WeatherList.cityName = new HashSet<>(sharedPreferences.getStringSet("CityName", null));
-        else
+        if (sharedPreferences.getStringSet("CityName", null) != null) {
+            if (!sharedPreferences.getStringSet("CityName", null).isEmpty()) {
+                //get the String set
+                WeatherList.cityName = new HashSet<>(sharedPreferences.getStringSet("CityName", null));
+            } else {
+                //if the string set from local storage is created but empty, set the cityName String set to null
+                WeatherList.cityName = null;
+            }
+        } else {
             //if the string set from local storage is null, set the cityName String set to null
             WeatherList.cityName = null;
+        }
         //if the cityName String set is not null, update each city weather.
         if (WeatherList.cityName != null) {
             for (String s : WeatherList.cityName) {
                 Log.e("FWK", s);
                 WeatherList.updateWeather(s);
             }
+            //set up the recyclerview for display all the city weather information that user requested
+            RecyclerView recyclerView = findViewById(R.id.recycler_forecast);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(new ForeignWeatherAdapter(this, WeatherList.foreignWeatherList));
         } else {
             //if no city is requested, ask the user the add new city
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -41,10 +51,6 @@ public class ForeignWeatherActivity extends AppCompatActivity {
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-        //set up the recyclerview for display all the city weather information that user requested
-        RecyclerView recyclerView = findViewById(R.id.recycler_forecast);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new ForeignWeatherAdapter(this, WeatherList.foreignWeatherList));
     }
 
     @Override
