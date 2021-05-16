@@ -75,18 +75,6 @@ public class WeatherList {
         return s;
     }
 
-    //update weather data by latitude and longitude
-    public static void updateWeather(String lat, String lon) {
-
-        //use future.get() to let the UI thread to wait for the data update finished
-        try {
-            Future<Boolean> future = executorPool.submit(new LocalWeatherJson(lat, lon), true);
-            future.get();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     //update weather data by latitude and longitude, return a WeatherInfo object
     public static WeatherInfo updateMapWeather(String lat, String lon) {

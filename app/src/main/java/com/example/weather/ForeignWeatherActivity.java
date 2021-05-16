@@ -44,7 +44,7 @@ public class ForeignWeatherActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(new ForeignWeatherAdapter(this, WeatherList.foreignWeatherList));
         } else {
-            //if no city is requested, ask the user the add new city
+            //if no city is requested, ask the user to add new city
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(getText(R.string.no_result_alertdialog_title));
             builder.setMessage(getText(R.string.cityname_message_alertdialog));
