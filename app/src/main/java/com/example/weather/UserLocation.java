@@ -120,9 +120,7 @@ public class UserLocation implements OnSuccessListener<Location> {
 
         } else {
             //if the location is null, retry to get the location
-            Intent intent = new Intent(ContextData.getActivity(), MainActivity.class);
-            ContextData.getActivity().startActivity(intent);
-            ContextData.getActivity().finish();
+            WeatherList.updateWeather();
         }
 
     }

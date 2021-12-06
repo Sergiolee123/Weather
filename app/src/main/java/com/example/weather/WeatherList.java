@@ -40,6 +40,7 @@ public class WeatherList {
     public static WeatherInfo getWeather(String dayTime) {
 
         for (WeatherInfo w : localWeatherList) {
+
             if (w.getDayTimeByDay().equals(dayTime))
                 return w;
 
@@ -98,23 +99,11 @@ public class WeatherList {
         Future<Boolean> future = executorPool.submit(() -> {
             boolean b = false;
 
-            //store the reference of the object that will be deleted
-            ArrayList<WeatherInfo> delete = new ArrayList<>();
-
-            delete.addAll(foreignWeatherList);
-
-            if (!delete.isEmpty()) {
-                Log.e(TAG, "removing weatherList");
-                foreignWeatherList.removeAll(delete);
-            }
+            foreignWeatherList = new CopyOnWriteArrayList<>();
 
 
-            delete.addAll(localWeatherList);
+            localWeatherList = new CopyOnWriteArrayList<>();
 
-            if (!delete.isEmpty()) {
-                Log.e(TAG, "removing LocalWeatherList");
-                b = localWeatherList.removeAll(delete);
-            }
             return b;
         });
         //use future.get() to let the UI thread to wait for the data delete finished
